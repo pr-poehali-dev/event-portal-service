@@ -38,20 +38,31 @@ export const getEventById = async (id: string): Promise<EventItem> => {
 
 // Создать новое мероприятие (доступно только администратору)
 export const createEvent = async (eventData: Omit<EventItem, 'id' | 'likes' | 'attendees' | 'created_by' | 'created_at'>, token: string): Promise<EventItem> => {
-  const response = await fetch(`${API_URL}/events`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify(eventData)
-  });
-  
-  if (!response.ok) {
-    throw new Error('Не удалось создать мероприятие');
+  try {
+    console.log('Отправка данных мероприятия:', eventData);
+    console.log('Токен авторизации:', token);
+    
+    const response = await fetch(`${API_URL}/events`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(eventData)
+    });
+    
+    if (!response.ok) {
+      // Получаем детальную информацию об ошибке
+      const errorData = await response.text();
+      console.error('Ошибка от сервера:', response.status, errorData);
+      throw new Error(`Не удалось создать мероприятие: ${response.status} ${errorData}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Ошибка при создании мероприятия:', error);
+    throw error;
   }
-  
-  return response.json();
 };
 
 // Изменить статус посещения мероприятия
