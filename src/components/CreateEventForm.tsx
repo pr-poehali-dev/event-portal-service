@@ -14,15 +14,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DatePicker } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from 'lucide-react';
+import { Calendar as CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { createEvent } from '@/api/events';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/components/ui/use-toast';
 import { EventCategory, City } from '@/types/events';
+import { Calendar } from '@/components/ui/calendar';
 
 const formSchema = z.object({
   title: z.string().min(3, 'Заголовок должен содержать минимум 3 символа'),
@@ -161,7 +161,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ onSuccess }) => {
                         variant="outline"
                         className="w-full justify-start text-left font-normal"
                       >
-                        <Calendar className="mr-2 h-4 w-4" />
+                        <CalendarIcon className="mr-2 h-4 w-4" />
                         {field.value ? (
                           format(field.value, 'PPP', { locale: ru })
                         ) : (
@@ -171,7 +171,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({ onSuccess }) => {
                     </FormControl>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
-                    <DatePicker
+                    <Calendar
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}

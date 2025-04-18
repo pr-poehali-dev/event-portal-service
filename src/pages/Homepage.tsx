@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import EventCard from '@/components/EventCard';
 import EventFilters from '@/components/EventFilters';
 import { getEvents } from '@/api/events';
 import { EventFilters as FiltersType, EventItem } from '@/types/events';
+import { Button } from '@/components/ui/button';
 
 const Homepage: React.FC = () => {
   const [filters, setFilters] = useState<FiltersType>({});

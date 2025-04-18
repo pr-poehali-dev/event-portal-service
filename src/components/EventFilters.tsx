@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DatePicker } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { Calendar } from 'lucide-react';
 import { EventFilters as FiltersType, City, EventCategory } from '@/types/events';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 
 interface EventFiltersProps {
   onFilterChange: (filters: FiltersType) => void;
@@ -63,7 +63,7 @@ const EventFilters: React.FC<EventFiltersProps> = ({ onFilterChange }) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
-              <DatePicker
+              <CalendarComponent
                 mode="single"
                 selected={startDate}
                 onSelect={setStartDate}
@@ -83,7 +83,7 @@ const EventFilters: React.FC<EventFiltersProps> = ({ onFilterChange }) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
-              <DatePicker
+              <CalendarComponent
                 mode="single"
                 selected={endDate}
                 onSelect={setEndDate}
